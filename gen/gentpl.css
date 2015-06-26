@@ -1,0 +1,45 @@
+/* zones */
+.list {width: 600px;padding-bottom: 50px;}
+.divlistcls{border:solid #a0a0a0;overflow:auto;}
+.new  { width: 600px; }
+.divnewcls{border:solid #80a0f0;overflow:auto;}
+.search { width: 600px; }
+.divsearchcls{border:solid #f0a080;overflow:auto;}
+
+/* pour eviter les marges */
+form {margin:0;}
+p {margin:0;}
+
+/* champs */
+.text     { width: 450px; height: 25px; }
+.menu     { width: 450px; height: 25px; }
+.int      { width: 450px; height: 25px; }
+.id       { width: 450px; height: 25px; }
+.longtext { width: 450px; height: 80px;}
+.date     { width: 450px; height: 25px; }
+.hidden   { visibility: hidden; }
+
+/* item des champs */
+.label { width: 150px; text-align: right; float: left;}
+.input { width: 270px; float: right;}
+
+.but_submit { width: 300px; float: right;}
+.del { width: 100px;  float: right;}
+.handcursor{cursor:hand;cursor:pointer;}
+
+/* pagination  */
+.pagination{clear: both;font: normal 11px "Trebuchet MS", Verdana, sans-serif;margin: 10px 0 0 5px;}
+.pagination a{font: normal 11px "Trebuchet MS", Verdana, sans-serif;display: inline;
+	padding: 0 3px 0 3px;background: #666;color: #FFF;text-decoration: none;margin: 0 5px 0 0;}
+.pagination a:hover{font: normal 11px "Trebuchet MS", Verdana, sans-serif;color: #FFF;background: #F00;text-decoration: none;}
+.pagination span{background: #EEE;color: #000;margin: 0;padding: 0 3px 0 3px;text-decoration: none;}
+
+/* special par table *//* .genfacture {width: 150px;  float: right;} */
+
+/* tooltip */
+a.tooltip em {display:none;}
+a.tooltip:hover {border: 0;position: relative;z-index: 10;text-decoration:none;}
+a.tooltip:hover em {font-style: normal;display: block;position: absolute;top: 20px;left: -10px;
+    padding: 5px;color: #000;border: 1px solid #bbb;background: #ffc;width:170px;}
+a.tooltip:hover em span {position: absolute;top: -7px;left: 15px;height: 7px;width: 11px;
+    background: transparent url(infobulletop.gif);margin:0;padding: 0;border: 0;}

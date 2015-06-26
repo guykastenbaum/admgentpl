@@ -1,0 +1,89 @@
+<!--#BEGIN search -->
+<div id="search_div_id" style="display:none;">
+<div id="search_div_contenu">
+<form action="{tablename}.php" method=get name=form_search id=form_search>
+<input type=hidden name=action value=search id=search_input_action>
+<table class="tableform">
+<!-- BEGIN fields -->
+<tr class="divitem {type}" id="search_div_{id}">
+<!-- BEGIN text -->
+	<td class="label" id="search_label_{id}">{label}</td>
+	<td class="input" id="search_input_{id}">
+		<input type=text name="search_{id}" id="search_{id}" size={size} value="[!{id}!]">
+		<span class="isnull">non:<input type=checkbox name="search_{id}_not"  id="search_{id}_not"  value="1" onClick="$F(search_{id})=''" [!search_{id}_not_checked!]></span>
+		<span class="isnull">nul:<input type=checkbox name="search_{id}_null" id="search_{id}_null" value="1" onClick="$F(search_{id})=''" [!search_{id}_null_checked!]></span>
+		</td>
+<!-- END text -->
+<!-- BEGIN int -->
+	<td class="label" id="search_label_{id}">{label}</td>
+	<td class="input" id="search_input_{id}">
+		<input type=text name="search_{id}" id="search_{id}" size={size} value="[!{id}!]">
+		<span class="isnull">non:<input type=checkbox name="search_{id}_not"  id="search_{id}_not"  value="1" onClick="$F(search_{id})=''" [!search_{id}_not_checked!]></span>
+		<span class="isnull">nul:<input type=checkbox name="search_{id}_null" id="search_{id}_null" value="1" onClick="$F(search_{id})=''" [!search_{id}_null_checked!]></span>
+</td>
+<!-- END int -->
+<!-- BEGIN menu -->
+	<td class="label" id="search_label_{id}">{label}</td>
+	<td class="input" id="search_input_{id}">
+		[!menu_{id}!]
+		<span class="isnull">non:<input type=checkbox name="search_{id}_not"  id="search_{id}_not"  value="1" onClick="$F(search_{id})=''" [!search_{id}_not_checked!]></span>
+		<span class="isnull">nul:<input type=checkbox name="search_{id}_null" id="search_{id}_null" value="1" onClick="$F(search_{id})=''" [!search_{id}_null_checked!]></span>
+	</td>
+<!-- END menu -->
+<!-- BEGIN longtext -->
+	<td class="label" id="search_label_{id}">{label}</td>
+	<td class="input" id="search_input_{id}">
+		<textarea rows={rows} cols={cols} name="search_{id}" id="search_{id}">[!{id}!]</textarea>
+		<span class="isnull">non:<input type=checkbox name="search_{id}_not"  id="search_{id}_not"  value="1" onClick="$F(search_{id})=''" [!search_{id}_not_checked!]></span>
+		<span class="isnull">nul:<input type=checkbox name="search_{id}_null" id="search_{id}_null" value="1" onClick="$F(search_{id})=''" [!search_{id}_null_checked!]></span>
+	</td>
+<!-- END longtext -->
+<!-- BEGIN html -->
+	<td class="label" id="search_label_{id}">{label}</td>
+	<td class="input" id="search_input_{id}">
+		<input type=text name="search_{id}" id="search_{id}" size={size} value="[!{id}!]">
+		<span class="isnull">non:<input type=checkbox name="search_{id}_not"  id="search_{id}_not"  value="1" onClick="$F(search_{id})=''" [!search_{id}_not_checked!]></span>
+		<span class="isnull">nul:<input type=checkbox name="search_{id}_null" id="search_{id}_null" value="1" onClick="$F(search_{id})=''" [!search_{id}_null_checked!]></span>
+	</td>
+<!-- END html -->
+<!-- BEGIN photo -->
+	<td class="label" id="search_label_{id}">{label}</td>
+	<td class="input" id="search_input_{id}">
+		<input type=text name="search_{id}" id="search_{id}" size={size} value="[!{id}!]">
+		<span class="isnull">non:<input type=checkbox name="search_{id}_not"  id="search_{id}_not"  value="1" onClick="$F(search_{id})=''" [!search_{id}_not_checked!]></span>
+		<span class="isnull">nul:<input type=checkbox name="search_{id}_null" id="search_{id}_null" value="1" onClick="$F(search_{id})=''" [!search_{id}_null_checked!]></span>
+	</td>
+<!-- END photo -->
+<!-- BEGIN hidden -->
+<!-- END hidden -->
+<!-- BEGIN date -->
+	<td class="label" id="search_label_{id}">{label}</td>
+	<td class="input" id="search_input_{id}">
+		<input type=text name="search_{id}" id="search_{id}" size={size} value="[!{id}!]">
+		<script type="text/javascript">
+		Calendar.setup({inputField:"search_{id}",ifFormat:"%d/%m/%Y",showsTime:false,timeFormat:"24"});
+		</script>
+		<span class="isnull">non:<input type=checkbox name="search_{id}_not"  id="search_{id}_not"  value="1" onClick="$F(search_{id})=''" [!search_{id}_not_checked!]></span>
+		<span class="isnull">nul:<input type=checkbox name="search_{id}_null" id="search_{id}_null" value="1" onClick="$F(search_{id})=''" [!search_{id}_null_checked!]></span>
+	</td>
+<!-- END date -->
+</tr>
+<!-- END fields -->
+<tr><td colspan=2>
+	<p class="but_submit" id="search_submit">
+	trier par : [!menu_orderby!]
+		<input type=checkbox value="1" name=orderby_desc id="orderby_desc">inverse
+		<br/><br/>
+		<input type=submit value=rechercher id="search_input_submit">
+		<!-- input type=button value=effacer id="search_input_reset" 
+			onClick="$A($$('#form_search input')).each(function(iv,v){
+				alert(v.id+'='+v.value);
+				v.clear();v.value='';
+				alert(v.id+'='+v.value);
+				})" --></p>
+</td></tr>
+</table>
+</form>
+</div>
+</div>
+<!--#END search -->

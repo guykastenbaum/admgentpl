@@ -1,0 +1,29 @@
+<html>
+{template_header}
+<body>
+<style>
+#menu_horizontal > ul > li { position:relative; cursor:pointer;}
+#menu_horizontal > ul > li > ul {
+		display:none;z-index:3;background-color:#fff;
+		width:600px;position:absolute;
+		border:1px solid grey;  box-shadow: 8px 8px 8px grey; }
+#menu_horizontal > ul > li > ul > li {width:200px;float:left;}
+#menu_horizontal > ul > li:hover > ul {display:block;background-color:#fff}
+</style>
+<div id="site">
+<div id="menu_horizontal">
+<ul><li>ADMIN
+  <ul>
+	<!-- BEGIN tables_admin -->
+	<li><a href="{table}.php">{table}</a></li>
+	<!-- END tables_admin -->
+  </ul></li>
+</ul>
+</div>
+
+<div id="html">
+{html}
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!--#BEGIN multimod -->
+<div id="multimod_div_id" style="display:none;width:500px;height:500px;overflow:auto;">
+<div id="multimod_div_contenu">
+<form action="{tablename}.php" method=get name="form_multimod" id="form_multimod">
+<input type=hidden name=action value=action_multimod id=multimod_input_action>
+<table class="tableform">
+<!-- BEGIN fields -->
+<tr class="{type} divitem" id="multimod_div_{id}_[!{tbid}!]">
+<!-- BEGIN text -->
+	<td class="label" id="multimod_label_{id}_[!{tbid}!]">{label}</td>
+		<td class="input" id="multimod_input_{id}_[!{tbid}!]">
+		<input type=text name={id} id="multimod_{id}_[!{tbid}!]" size={size} value="[!{id}!]"></td>
+<!-- END text -->
+<!-- BEGIN int -->
+	<td class="label" id="multimod_label_{id}_[!{tbid}!]">{label}</td>
+	<td class="input" id="multimod_input_{id}_[!{tbid}!]">
+		<input type=text name={id} id="multimod_{id}_[!{tbid}!]" size={size} value="[!{id}!]"></td>
+<!-- END int -->
+<!-- BEGIN menu -->
+	<td class="label" id="multimod_label_{id}_[!{tbid}!]">{label}</td>
+	<td class="input" id="multimod_input_{id}_[!{tbid}!]">[!menu_{id}!]</td>
+<!-- END menu -->
+<!-- BEGIN longtext -->
+	<td class="label" id="multimod_label_{id}_[!{tbid}!]">{label}</td>
+	<td class="input" id="multimod_input_{id}_[!{tbid}!]">
+		<textarea rows={rows} cols={cols} name={id} id="multimod_{id}_[!{tbid}!]">[!{id}!]</textarea></td>
+<!-- END longtext -->
+<!-- BEGIN html -->
+	<td class="label" id="multimod_label_{id}">{label}</td>
+	<td class="input" id="multimod_input_{id}">
+		<textarea rows={rows} cols={cols} name={id} id="multimod_{id}_[!{tbid}!]">[!{id}!]</textarea></td>
+	</td>
+<!-- END html -->
+<!-- BEGIN photo -->
+	<td class="label" id="multimod_label_{id}">{label}</td>
+	<td class="input" id="multimod_input_{id}">
+		"[!{id}!]":<br/>
+		<img src="{dir}/[!{id}_img!]" border=0><br/>
+		<input type=file name="multimod_{id}" id="multimod_{id}" size={size} value="[!{id}!]">
+	<!--#BEGIN edit_{id}_sizes -->
+		<br/>[!ext!]:<img src="{dir}/[!{id}_ext!]" border=0>
+	<!--#END edit_{id}_sizes -->
+		</td>
+<!-- END photo -->
+<!-- BEGIN file -->
+	<td class="label" id="multimod_label_{id}">{label}</td>
+	<td class="input" id="multimod_input_{id}">
+		<a href="/{dir}/[!{id}!]" target="file">"[!{id}!]"</a>:
+		<input type=button onClick="gentpl_editupload('[!{tbid}!]','{id}',this);" value="UPLOAD">
+	</td>
+<!-- END file -->
+<!-- BEGIN editcode -->
+	<td class="label" id="multimod_label_{id}">{label}</td>
+	<td class="input" id="multimod_input_{id}">
+		{editcode}
+	</td>
+<!-- END editcode -->
+<!-- BEGIN date -->
+	<td class="label" id="multimod_label_{id}_[!{tbid}!]">{label}</td>
+	<td class="input" id="multimod_input_{id}_[!{tbid}!]">
+		<input type=text name={id} id="multimod_{id}_[!{tbid}!]" size={size} value="[!{id}_aff!]">
+		<script type="text/javascript">
+		Calendar.setup({inputField:"multimod_{id}_[!{tbid}!]",ifFormat:"%d/%m/%Y",showsTime:false,timeFormat:"24"});
+		</script>
+	</td>
+<!-- END date -->
+<!-- BEGIN hidden -->
+<!-- END hidden -->
+</tr>
+<!-- END fields -->
+</table>
+<input class="but_submit" type=button value=modifier id="multimod_input_submit_mod">
+<input class="but_submit" type=button value=supprimer id="multimod_input_submit_del">
+</form>
+<div id="multimod_div_ok"></div>
+</div>
+<!--#END multimod -->

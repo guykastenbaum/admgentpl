@@ -1,0 +1,27 @@
+{tablename_head}
+<script type="text/javascript">
+cfrep_fck='{cfrep_fck}';
+</script>
+<p id="message">{message}</p>
+
+<!--#BEGIN search -->
+<div id="search">
+<form action="{tablename}.php" method=get name=form_ssearch id=form_ssearch>
+Rechercher : 
+	<input type=hidden name=action value=search id=ssearch_input_action>
+	<input type=text name=search_fulltext value="[!fulltext!]" size id=ssearch_fulltext>
+	<!-- BEGIN fields_search -->
+	<!-- BEGIN text --><input type=text name="ssearch_{id}" id="ssearch_{id}" size={size} value="[!{id}!]"><!-- END text -->
+	<!-- BEGIN int --><input type=text name="ssearch_{id}" id="ssearch_{id}" size={size} value="[!{id}!]"><!-- END int -->
+	<!-- BEGIN menu -->[!menu_{id}!]<!-- END menu -->
+	<!-- END fields_search -->
+	tri:[!menu_orderby!]
+	<input type=checkbox value="1" name=orderby_desc id="ssearch_orderby_desc">inv.
+	<input type=submit value="Rechercher" id="ssearch_input_submit">
+</form>
+<button id="open_search_popup" class="handcursor">rech.avancée</button>
+<button id="open_multimod_popup" class="handcursor">multimodif</button>
+</div>
+<!--#END search -->
+
+

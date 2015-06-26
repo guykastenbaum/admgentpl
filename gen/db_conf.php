@@ -1,0 +1,1 @@
+<?php $db_host='localhost';$db_user='curiotm';$db_name='curiotm';$db_pass='cuJR10z'; ?>

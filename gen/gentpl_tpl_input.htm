@@ -1,0 +1,58 @@
+<!-- BEGIN fields -->
+<tr class="{type} divitem" id="{bloc}_div_{id}_[!{tbid}!]">
+<!-- BEGIN text -->
+	<td class="label" id="{bloc}_label_{id}_[!{tbid}!]">{label}</td>
+		<td class="input" id="{bloc}_input_{id}_[!{tbid}!]">
+		<input type=text name={id} id="{bloc}_{id}_[!{tbid}!]" size={size} value="[!{id}!]"></td>
+<!-- END text -->
+<!-- BEGIN int -->
+	<td class="label" id="{bloc}_label_{id}_[!{tbid}!]">{label}</td>
+	<td class="input" id="{bloc}_input_{id}_[!{tbid}!]">
+		<input type=text name={id} id="{bloc}_{id}_[!{tbid}!]" size={size} value="[!{id}!]"></td>
+<!-- END int -->
+<!-- BEGIN menu -->
+	<td class="label" id="{bloc}_label_{id}_[!{tbid}!]">{label}</td>
+	<td class="input" id="{bloc}_input_{id}_[!{tbid}!]">[!menu_{id}!]</td>
+<!-- END menu -->
+<!-- BEGIN longtext -->
+	<td class="label" id="{bloc}_label_{id}_[!{tbid}!]">{label}</td>
+	<td class="input" id="{bloc}_input_{id}_[!{tbid}!]">
+		<textarea rows={rows} cols={cols} name={id} id="{bloc}_{id}_[!{tbid}!]">[!{id}!]</textarea></td>
+<!-- END longtext -->
+<!-- BEGIN html -->
+	<td class="label" id="{bloc}_label_{id}">{label}</td>
+	<td class="input" id="{bloc}_input_{id}">
+		<script type='text/javascript'>
+		var oFCKeditor = new FCKeditor('{id}',{width},{height});
+		oFCKeditor.BasePath = '/admin/FCKeditor/';
+		oFCKeditor.Value = "[!{id}!]" ;
+		oFCKeditor.Create();
+		</script>
+	</td>
+<!-- END html -->
+<!-- BEGIN photo -->
+	<td class="label" id="{bloc}_label_{id}">{label}</td>
+	<td class="input" id="{bloc}_input_{id}">
+		"[!{id}!]":<br/>
+		<img src="{dir}[!{id}_img!]" border=0><br/>
+		<input type=file name="{bloc}_{id}" id="{bloc}_{id}" size={size} value="[!{id}!]">
+	<!--#BEGIN edit_{id}_sizes -->
+		<br/>[!ext!]:<img src="{dir}[!{id}_ext!]" border=0>
+	<!--#END edit_{id}_sizes -->
+		</td>
+<!-- END photo -->
+<!-- BEGIN date -->
+	<td class="label" id="{bloc}_label_{id}_[!{tbid}!]">{label}</td>
+	<td class="input" id="{bloc}_input_{id}_[!{tbid}!]">
+		<input type=text name={id} id="{bloc}_{id}_[!{tbid}!]" size={size} value="[!{id}_aff!]">
+		<script type="text/javascript">
+		Calendar.setup({inputField:"{bloc}_{id}_[!{tbid}!]",ifFormat:"%d/%m/%Y",showsTime:false,timeFormat:"24"});
+		</script>
+		</td>
+<!-- END date -->
+<!-- BEGIN hidden -->
+	<td class="input" id="{bloc}_input_{id}_[!{tbid}!]">
+		<input type=hidden name={id} id="{bloc}_{id}_[!{tbid}!]" value="[!{id}!]"></td>
+<!-- END hidden -->
+</tr>
+<!-- END fields -->

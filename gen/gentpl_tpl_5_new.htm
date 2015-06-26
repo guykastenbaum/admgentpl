@@ -1,0 +1,60 @@
+<!--#BEGIN new -->
+<div id="new_div_id" style="display:none;">
+<form action="{tablename}.php" method=post ENCTYPE="multipart/form-data" name=form_new id=form_new>
+<input type=hidden name=action value=add id=input_action_[!{tbid}!]>
+<input type=hidden name=popup value="[!popup!]">
+<table class="tableform">
+<!-- BEGIN fields_noid -->
+<tr class="{type} divitem" id="new_div_{id}">
+<!-- BEGIN text -->
+	<td class="label" id="new_label_{id}">{label}</td>
+	<td class="input" id="new_input_{id}">
+		<input type=text name={id} id="new_{id}" size={size} value="[!{id}!]"></td>
+<!-- END text -->
+<!-- BEGIN int -->
+	<td class="label" id="new_label_{id}">{label}</td>
+	<td class="input" id="new_input_{id}">
+		<input type=text name={id} id="new_{id}" size={size} value="[!{id}!]"></td>
+<!-- END int -->
+<!-- BEGIN menu -->
+	<td class="label" id="new_label_{id}">{label}</td>
+	<td class="input" id="new_input_{id}">
+		[!menu_{id}!]</td>
+<!-- END menu -->
+<!-- BEGIN longtext -->
+	<td class="label" id="new_label_{id}">{label}</td>
+	<td class="input" id="new_input_{id}">
+		<textarea rows={rows} cols={cols} name={id} id="new_{id}">[!{id}!]</textarea></td>
+<!-- END longtext -->
+<!-- BEGIN html -->
+	<td class="label" id="new_label_{id}">{label}</td>
+	<td class="input" id="new_input_{id}">
+		<input type=text name="new_{id}" id="new_{id}" size={size} value="[!{id}!]"></td>
+<!-- END html -->
+<!-- BEGIN photo -->
+	<td class="label" id="new_label_{id}">{label}</td>
+	<td class="input" id="new_input_{id}">
+		<input type=file name="new_{id}" id="new_{id}" size={size} value="[!{id}!]">
+		</td>
+<!-- END photo -->
+<!-- BEGIN date -->
+	<td class="label" id="new_label_{id}">{label}</td>
+	<td class="input" id="new_input_{id}">
+		<input type=text name={id} id="new_{id}" size={size} value="[!{id}!]">
+		<script type="text/javascript">
+		Calendar.setup({inputField:"new_{id}",ifFormat:"%d/%m/%Y",showsTime:false,timeFormat:"24"});
+		</script>
+	</td>
+<!-- END date -->
+<!-- BEGIN hidden -->
+<!-- END hidden -->
+</tr>
+<!-- END fields_noid -->
+<tr><td colspan=2>
+	<p class="but_submit" id="new_submit">
+		<input type=submit value=ajouter id="new_input_submit"></p>
+</td></tr></table>
+</form>
+</div>
+</div>
+<!--#END new -->

@@ -1,0 +1,58 @@
+
+<!--#BEGIN divlist -->
+<div id=list>
+<table class="tableform sortable resizable editable">
+<thead><tr>
+	<th class="noedit nosort" nowrap="1" align=center id="list_th_ajouter"><img src="./inc/images/picto_ajouter.gif" id="open_new_popup" class="handcursor">
+		<input type=checkbox class="list_check_multimod_all" />
+	</th>
+	<!--#BEGIN fields -->
+	<th <!--#BEGIN if_noedit -->class="noedit nosort"<!--#END if_noedit --> align=center id="list_th_[!id!]">
+		[!label!]</th><!--#END fields -->{tablename_headp}
+	<th class="noedit nosort" nowrap="1" align=center id="list_th_ajouter"><img src="./inc/images/picto_ajouter.gif" id="open_new_popup2" class="handcursor"></th>
+	</tr></thead>
+<tfoot><tr>
+	<th nowrap="1" align=center ><img src="./inc/images/picto_ajouter.gif" id="open_new_popup3" class="handcursor">
+		<input type=checkbox class="list_check_multimod_all" />
+	</th>
+	<!--#BEGIN fields --><th align=center>[!label!]</th><!--#END fields -->
+	<th align=center>&nbsp;</th>
+	</tr></tfoot>
+<tbody>
+<!--#BEGIN list -->
+<tr class="listline[!parite!]" id="list_tr_[!{tbid}!]">
+<td class="noedit nosort" nowrap="1" >
+<img src="./inc/images/picto_modifier.gif" onClick="gentpl_edit([!{tbid}!],'','{openpopup}');" class="handcursor">
+<img src="./inc/images/picto_effacer.gif"  onClick="gentpl_edit([!{tbid}!],'','{openpopup}');" class="handcursor">
+<input type=checkbox class="list_check_multimod" id="list_check_multimod_[!{tbid}!]" />
+</td>
+
+<!-- BEGIN line -->
+<td <!-- BEGIN if_noedit -->class="noedit nosort"<!-- END if_noedit --> 
+><!-- BEGIN if_href --><span class="handcursor" {href_extra} onclick="gentpl_edit('[!{tbid}!]','{href}','{type_href}')">
+<!-- END if_href -->[!{idaff}_aff!]{affix}{postfix}<!-- BEGIN if_href --></span>
+<!-- END if_href --></td>
+<!-- END line -->
+
+{tablename_loop}
+<td class="noedit nosort" nowrap="1" >
+<img src="./inc/images/picto_modifier.gif" onClick="gentpl_edit([!{tbid}!],'','{openpopup}');" class="handcursor">
+<img src="./inc/images/picto_effacer.gif" onClick="gentpl_edit([!{tbid}!],'','{openpopup}');" class="handcursor">
+</td></tr>
+<!--#END list -->
+</tbody>
+</table>
+{tablename_endp}
+
+<p class="pagination"><!--#BEGIN pagination -->
+<!--#BEGIN pagination_prec --><a href="[!pagination_url!]">[!pagination!]</a><!--#END pagination_prec -->
+<!--#BEGIN pagination_act --><span>[!pagination!]</span><!--#END pagination_act -->
+<!--#BEGIN pagination_suiv --><a href="[!pagination_url!]">[!pagination!]</a><!--#END pagination_suiv -->
+<span class="pagination_total">total:[!pagination_nb!]</span>
+<!--#BEGIN pagination_act --><select onchange="location.href='[!pagination_url!]&pagination_pag='+this.value;"><option value=""></option><option value=5>5</option><option value=10>10</option><option value=20>20</option><option value=50>50</option><option value=100>100</option><option value=300>300</option><option value=500>500</option></select><!--#END pagination_act -->
+<!--#END pagination -->
+<a href="{tablename}.php?action2=export" target="_blank">Exporter</a>
+</p>
+</div>
+<!--#END divlist -->
+

@@ -1,0 +1,68 @@
+<div id="gentpl_tab"><span onClick="$('.divname').hide();">[-]</span> | 
+	<span onClick="$('.divname').show();">[+]</span>
+
+<!-- BEGIN field -->
+<div id="divname-{field}-title" class="beforedivname">{field}+&gt;</div>
+<ul id="divname-{field}" class="divname">
+<!-- BEGIN name -->
+
+<!-- BEGIN if_text -->
+<label>{label}</label> <a href="#" title="{help}">(?)</a>:<input type=text name="{id}" value="{value}" size=80><br/>
+<!-- END if_text -->
+
+<!-- BEGIN if_html -->
+<label>{label}</label> <a href="#" title="{help}">(?)</a>:<textarea name="{id}" rows=3 cols=80>{value}</textarea><br/>
+<!-- END if_html -->
+
+<!-- BEGIN if_photo -->
+<label>{label}</label> <a href="#" title="{help}">(?)</a>:<input type=text name="{id}" value="{value}" size=40><br/>
+<!-- END if_photo -->
+
+<!-- BEGIN if_int -->
+<label>{label}</label> <a href="#" title="{help}">(?)</a>:
+<input type=text name="{id}" id="{id}" value="{value}" size=6>
+<select onchange="document.getElementById('{id}').value=this.value">
+<option value=''></option> <option value='1'>1</option> <option value='2'>2</option> <option value='3'>3</option> <option value='4'>4</option> <option value='5'>5</option> <option value='6'>6</option> <option value='7'>7</option> <option value='8'>8</option> <option value='9'>9</option> <option value='10'>10</option>
+<option value='11'>11</option> <option value='12'>12</option> <option value='13'>13</option> <option value='14'>14</option> <option value='15'>15</option> <option value='16'>16</option> <option value='17'>17</option> <option value='18'>18</option> <option value='19'>19</option> <option value='20'>20</option> <option value='25'>25</option> <option value='30'>30</option> <option value='35'>35</option> <option value='40'>40</option> <option value='45'>45</option> <option value='50'>50</option>
+<option value='60'>60</option> <option value='70'>70</option> <option value='80'>80</option> <option value='90'>90</option> <option value='100'>100</option> <option value='125'>125</option> <option value='150'>150</option> <option value='175'>175</option> <option value='200'>200</option>
+</select>
+<br/>
+<!-- END if_int -->
+
+<!-- BEGIN if_flag -->
+<label>{label}</label> <a href="#" title="{help}">(?)</a>:
+	 0<input type=radio name="{id}" value="0" {checked0}>
+	/1<input type=radio name="{id}" value="1" {checked1}>
+	<br/>
+<!-- END if_flag -->
+
+<!-- BEGIN if_menu -->
+<label>{label}</label> <a href="#" title="{help}">(?)</a>:{menu}<br/>
+<!-- END if_menu -->
+
+<!-- BEGIN if_else -->
+<label>{label}</label> <a href="#" title="{help}">(?)</a>:<input type=text name="{id}" value="{value}" size=40><br/>
+<!-- END if_else -->
+
+<!-- END name -->
+</ul>
+<!-- END field -->
+</div>
+<script type="text/javascript">
+    $(document).tooltip();
+    $('.divname').hide();
+    $('.beforedivname').click(function(){
+        $(this).next(".divname").slideToggle(100);
+    });
+/*
+var divname=new switchcontent("divname", "div") //Limit scanning of switch contents to just "div" elements
+divname.setStatus('<img src="inc/switchcontent-open-arrow.gif" /> ', '<img src="inc/switchcontent-close-arrow.gif" /> ')
+divname.setColor('darkred', 'black')
+divname.setPersist(true)
+divname.collapsePrevious(false) //f=Allow more than 1 content to be open simultanously  //tOnly one content open at any given time
+//none divname.defaultExpanded(0,1)
+divname.init()
+*/
+</script>
+
+

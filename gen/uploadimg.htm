@@ -1,0 +1,36 @@
+<b>{msg}</b>
+<!-- BEGIN prd -->
+<FORM ENCTYPE="multipart/form-data" METHOD="POST">
+<input type=hidden name=action value=upload>
+<input type=hidden name=prd_ref value="{prd_ref}">
+<input type=hidden name=prd_id value="{prd_id}">
+<input type=hidden name=prdro_marque value="{prdro_marque}">
+<input type=hidden name=prd_produit value="{prd_produit}">
+<input type=hidden name=prd_rubrique value="{prd_rubrique}">
+<input type=hidden name=prdro_ligne value="{prdro_ligne}">
+
+<br/>{prdro_marque}/{prd_produit}
+<br/>ref={prd_ref}
+<br/>img={prd_image}
+<br/>
+<br/>original :  w={largeur} h={hauteur} , w/h={lh}
+<br/><img src="{d}/{prd_ref}.jpg">
+<br/><input type=file name="upload_prd_ref">
+générer br,mr,hr ?<input type=checkbox name="genere_prd_ref" value=1 checked>
+<br/>
+<br>br,w=150px w={br_largeur} h={br_hauteur} , w/h={br_lh}
+<br/><img src="{d}/br_{prd_ref}.jpg">
+<br/><input type=file name="upload_br_prd_ref">
+<br/>
+<br>mr,w=280px w={mr_largeur} h={mr_hauteur} , w/h={mr_lh}
+<br/><img src="{d}/mr_{prd_ref}.jpg">
+<br/><input type=file name="upload_mr_prd_ref">
+<br/>
+<br>hr,w=500px  w={hr_largeur} h={hr_hauteur} , w/h={hr_lh}
+<br/><img src="{d}/hr_{prd_ref}.jpg">
+<br/><input type=file name="upload_hr_prd_ref">
+
+<br/><input type=submit value="ENVOI">
+</form>
+<!-- END prd -->
+<br/>
