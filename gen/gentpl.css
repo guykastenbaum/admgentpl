@@ -1,3 +1,20 @@
+/* template menu hor */
+#menu_horizontal > ul { list-style-type: none;border:1px solid grey;}
+#menu_horizontal > ul > li { position:relative; cursor:pointer;}
+#menu_horizontal > ul > li > ul {
+		display:none;z-index:3;background-color:#fff;
+		width:600px;position:absolute;
+		border:1px solid grey;  box-shadow: 8px 8px 8px grey; }
+#menu_horizontal > ul > li > ul > li {width:200px;float:left;}
+#menu_horizontal > ul > li:hover > ul {display:block;background-color:#fff}
+
+
+/* gentpl_tab */
+#gentpl_tab > span{cursor:pointer;}
+#gentpl_tab .beforedivname{cursor:pointer;}
+#gentpl_tab .divname{margin-left:20px;}
+#gentpl_tab label{display:inline-block;text-align:right;width:120px;}
+
 /* zones */
 .list {width: 600px;padding-bottom: 50px;}
 .divlistcls{border:solid #a0a0a0;overflow:auto;}
@@ -5,6 +22,7 @@
 .divnewcls{border:solid #80a0f0;overflow:auto;}
 .search { width: 600px; }
 .divsearchcls{border:solid #f0a080;overflow:auto;}
+#form_ssearch{float:left;}
 
 /* pour eviter les marges */
 form {margin:0;}
@@ -21,20 +39,19 @@ p {margin:0;}
 
 /* item des champs */
 .label { width: 150px; text-align: right; float: left;}
-.input { width: 270px; float: right;}
+.input { width: 300px; float: right;}
 
 .but_submit { width: 300px; float: right;}
 .del { width: 100px;  float: right;}
 .handcursor{cursor:hand;cursor:pointer;}
 
 /* pagination  */
-.pagination{clear: both;font: normal 11px "Trebuchet MS", Verdana, sans-serif;margin: 10px 0 0 5px;}
-.pagination a{font: normal 11px "Trebuchet MS", Verdana, sans-serif;display: inline;
+.pagination{clear: both;font-size: 11px;margin: 10px 0 0 5px;}
+.pagination a{font-size:11px;display: inline;
 	padding: 0 3px 0 3px;background: #666;color: #FFF;text-decoration: none;margin: 0 5px 0 0;}
 .pagination a:hover{font: normal 11px "Trebuchet MS", Verdana, sans-serif;color: #FFF;background: #F00;text-decoration: none;}
 .pagination span{background: #EEE;color: #000;margin: 0;padding: 0 3px 0 3px;text-decoration: none;}
-
-/* special par table *//* .genfacture {width: 150px;  float: right;} */
+.pagination_total{color:#fff;}
 
 /* tooltip */
 a.tooltip em {display:none;}
@@ -43,3 +60,41 @@ a.tooltip:hover em {font-style: normal;display: block;position: absolute;top: 20
     padding: 5px;color: #000;border: 1px solid #bbb;background: #ffc;width:170px;}
 a.tooltip:hover em span {position: absolute;top: -7px;left: 15px;height: 7px;width: 11px;
     background: transparent url(infobulletop.gif);margin:0;padding: 0;border: 0;}
+
+	
+/* general */
+#edit ,#new,#new_div_id,#search ,#search_div_id{}
+#message{margin-left:300px;}
+#popup_close{clear:both;margin-left:300px;}
+.tableform{
+	font-family:arial; font-size:12px; font-weight:normal;empty-cells:show;
+	border:1px solid black; border-color:#444444; border-collapse:collapse; border-spacing:2px;
+}
+
+/* liste */
+#list table{ color:#000;;border-spacing:2px; border-collapse:separate; background-color:#fff; }
+#list td{ white-space: nowrap; overflow: hidden;border:1px solid black;text-align:center;
+	padding:0 2px; color:black; font-family:arial; font-size:12px; } 
+#list td:hover{ background-color:#ddd;border:1 solid #444;margin:1;} 
+#list span{ text-decoration:none;color:black; } 
+#list span:hover{ color:white; background-color:#666;} 
+#list tr.rowodd {background-color: #FFF;}
+#list tr.roweven {background-color: #FF8;}
+#list th{border:1px solid black; background-color:#B55; color:black; font-family:arial; font-size:14px;} 
+#list th:hover{	background-color:#aaa;}
+
+/********************************************************/
+
+#edit ,#new,#search ,#new_div_id,#search_div_id,#editupload,#multimod_div_id {
+	border:2px solid #F89; color:#000; background-color:#fff; font-size:12px;
+}
+#search_div_header,#editupload_header,#multimod_div_header {background-color:#F89;}
+#message{margin-left:300px;}
+#popup_close{clear:both;margin-left:300px;}
+/* edit modif */
+#edit{ margin:20px; background-color:#CCCCCC; padding:10px;}
+#edit a{ color:black; text-decoration:none;}
+#edit a:hover{text-decoration:underline;}
+#orderby{width:100px;}
+#search_prd_rubrique{width:200px;}
+
