@@ -44,10 +44,15 @@
 </table>
 {tablename_endp}
 
-<p class="pagination"><!--#BEGIN pagination -->
+<p class="pagination">
+<!--#BEGIN pagination -->
+<!--#BEGIN pagination_pagepremiere --><a href="[!pagination_url!]">&lt;&lt;</a><!--#END pagination_pagepremiere -->
+<!--#BEGIN pagination_pageprec --><a href="[!pagination_url!]">&lt;</a><!--#END pagination_pageprec -->
 <!--#BEGIN pagination_prec --><a href="[!pagination_url!]">[!pagination!]</a><!--#END pagination_prec -->
 <!--#BEGIN pagination_act --><span>[!pagination!]</span><!--#END pagination_act -->
 <!--#BEGIN pagination_suiv --><a href="[!pagination_url!]">[!pagination!]</a><!--#END pagination_suiv -->
+<!--#BEGIN pagination_pagesuiv --><a href="[!pagination_url!]">&gt;</a><!--#END pagination_pagesuiv -->
+<!--#BEGIN pagination_pagederniere --><a href="[!pagination_url!]">&gt;&gt;</a><!--#END pagination_pagederniere -->
 <span class="pagination_total">total:[!pagination_nb!]</span>
 <!--#BEGIN pagination_act --><select onchange="location.href='[!pagination_url!]&pagination_pag='+this.value;"><option value=""></option><option value=5>5</option><option value=10>10</option><option value=20>20</option><option value=50>50</option><option value=100>100</option><option value=300>300</option><option value=500>500</option></select><!--#END pagination_act -->
 <!--#END pagination -->
