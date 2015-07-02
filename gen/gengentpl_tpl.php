@@ -185,7 +185,8 @@ if ($action=="mod")  //---------------------------------MOD---------------------
 		$tt["msg"]=$msg;
 	}
 }
-if (($action=="edit") or ($action=="mod") or ($action=="add"))  //---------------------------------EDIT----------------------------------------
+//---------------------------------EDIT----------------------------------------
+if (($action=="edit") or ($action=="mod") or ($action=="add"))  
 {
 	$sql="select * from $tablename where 1 \n";
 	foreach($tb as $name=>$tbv)
@@ -195,7 +196,6 @@ if (($action=="edit") or ($action=="mod") or ($action=="add"))  //--------------
 	foreach(array_keys($tb) as $tbk)
 		if ($tb[$tbk]["menu"])
 				$tt["form"]["menu_".$tbk] = f_sql2menu($tbk ,$tt["form"][$tbk] ,$tb[$tbk]["tmp_menutab"],$tb[$tbk]["menu_javascript"],$tb[$tbk]["menu_tabul"]);
-	//print_r($tt);die;
 	/* debut code spe headf *//* fin code spe */
 	// reformattage eventuel
 	if($tt["form"])
@@ -437,6 +437,6 @@ foreach($tt as $ttsubsk=>$ttsubsv)
 /* debut code spe end *//* fin code spe */
 //print_r($tb);die;
 $filehtm=gentpl_action_gentpl_htm($tb);
-//print($filehtm);die;print_r($tt);die;
+//print_r($tb);print_r($tt);print($filehtm);die;
 print gentpl_template($tt,array(),$filehtm);
 ?>
