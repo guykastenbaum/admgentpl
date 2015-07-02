@@ -55,6 +55,7 @@ function gentpl_tbajoutdef($tb)
 function tbcretb($db,$tablename){
 global $cfdir_tab,$ttarrayname;
 //die("mysql_list_fields(".$_SESSION["db_name"].", $tablename, $db");
+	$ttfilename=$tablename."_inc.php";
 	$fields = mysql_list_fields($_SESSION["db_name"], $tablename, $db);
     //$rows   = mysql_num_rows($result);
     //$table = mysql_field_table($result, 0);
