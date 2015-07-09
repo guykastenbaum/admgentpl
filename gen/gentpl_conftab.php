@@ -55,7 +55,7 @@ $tbtypes_help=array(
 	"colwidth" => "largeur de la colonne (TD) à afficher",
 	"list" => "ce champ est il dans l'affichage liste",
 	"text" => "",
-	"menu" => "choix sous forme de menu fixe 'key:val;key:val' ou sql 'select key,val from table'",
+	"menu" => "choix sous forme de menu fixe 'key:val;key:val' ou sql 'select key,val[,parent(root=null)] from table'",
 	"postfix" => "libellé à afficher après la valeur",
 	"affix" => "contenu à afficher en remplacement de la valeur, <br>Ex: &lt;img src='/img/flag-actif-{ champ }.gif'&gt;",
 	"flag_href" => "affiche t on le lien href sur la liste",
@@ -84,7 +84,7 @@ $tbtypes_help=array(
 	"datetime" => "",
 	"hidden" => "champ non affiché",
 	"menu_javascript"=>"javascript exécuté sur un menu",
-	"menu_tabul"=>"tabulation utilisée dans les menus hierarchiques",
+	"menu_tabul"=>"tabulation utilisée dans les menus hierarchiques (. . . .)",
 	"search"=>"requete sql 'key:(sql);key:(sql)'",
 	);
 $type_edit=array(
