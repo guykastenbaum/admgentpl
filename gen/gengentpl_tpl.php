@@ -335,8 +335,8 @@ $filter_fulltext=$search_filter["fulltext"];
 if ($filter_fulltext){
 	$sqlwhere.=" and (1=0 ";
 	foreach($tb as $name=>$tbv)
-		if (($tbv["typebdd"]=="text") or ($tbv["typebdd"]=="date"))
-			$sqlwhere.=gentpl_typebdd_wqq($name,$filter_fulltext,$tbv["typebdd"],$filternot,($tbv["menu"])?1:2,"OR");
+		//on every kind of fields : if (($tbv["typebdd"]=="text") or ($tbv["typebdd"]=="date"))
+		$sqlwhere.=gentpl_typebdd_wqq($name,$filter_fulltext,$tbv["typebdd"],$filternot,($tbv["menu"])?1:2,"OR");
 	$sqlwhere.=" ) ";
 }
 $sqlorderby=" order by ";
