@@ -39,6 +39,7 @@ function gentpl_typebdd_wqq($v_name,$v_filter,$v_typebdd="text",$v_filternot=fal
 			return(" $v_andor ($filternot ( $v_name >=".($v_filter)." \n".
 				" AND $v_name < DATE_ADD(".($v_filter).",INTERVAL 1 DAY))) \n");
 	}
+	if ($v_typebdd=="null") return("");//not a column
 	return(" $v_andor $filternot $v_name=".f_qqsqlq($v_filter)." \n");//par defaut
 }
 

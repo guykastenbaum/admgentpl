@@ -22,8 +22,8 @@
 <!--#BEGIN list -->
 <tr class="listline[!parite!]" id="list_tr_[!{tbid}!]">
 <td class="noedit nosort" nowrap="1" >
-<img src="./inc/images/picto_modifier.gif" onClick="gentpl_edit([!{tbid}!],'','{openpopup}');" class="handcursor">
-<img src="./inc/images/picto_effacer.gif"  onClick="gentpl_edit([!{tbid}!],'','{openpopup}');" class="handcursor">
+<img src="./inc/images/picto_modifier.gif" onClick="gentpl_edit('[!{tbid}!]','','{openpopup}');" class="handcursor">
+<img src="./inc/images/picto_effacer.gif"  onClick="gentpl_edit('[!{tbid}!]','','{openpopup}');" class="handcursor">
 <input type=checkbox class="list_check_multimod" id="list_check_multimod_[!{tbid}!]" />
 </td>
 
@@ -36,23 +36,18 @@
 
 {tablename_loop}
 <td class="noedit nosort" nowrap="1" >
-<img src="./inc/images/picto_modifier.gif" onClick="gentpl_edit([!{tbid}!],'','{openpopup}');" class="handcursor">
-<img src="./inc/images/picto_effacer.gif" onClick="gentpl_edit([!{tbid}!],'','{openpopup}');" class="handcursor">
+<img src="./inc/images/picto_modifier.gif" onClick="gentpl_edit('[!{tbid}!]','','{openpopup}');" class="handcursor">
+<img src="./inc/images/picto_effacer.gif" onClick="gentpl_edit('[!{tbid}!]','','{openpopup}');" class="handcursor">
 </td></tr>
 <!--#END list -->
 </tbody>
 </table>
 {tablename_endp}
 
-<p class="pagination">
-<!--#BEGIN pagination -->
-<!--#BEGIN pagination_pagepremiere --><a href="[!pagination_url!]">&lt;&lt;</a><!--#END pagination_pagepremiere -->
-<!--#BEGIN pagination_pageprec --><a href="[!pagination_url!]">&lt;</a><!--#END pagination_pageprec -->
+<p class="pagination"><!--#BEGIN pagination -->
 <!--#BEGIN pagination_prec --><a href="[!pagination_url!]">[!pagination!]</a><!--#END pagination_prec -->
 <!--#BEGIN pagination_act --><span>[!pagination!]</span><!--#END pagination_act -->
 <!--#BEGIN pagination_suiv --><a href="[!pagination_url!]">[!pagination!]</a><!--#END pagination_suiv -->
-<!--#BEGIN pagination_pagesuiv --><a href="[!pagination_url!]">&gt;</a><!--#END pagination_pagesuiv -->
-<!--#BEGIN pagination_pagederniere --><a href="[!pagination_url!]">&gt;&gt;</a><!--#END pagination_pagederniere -->
 <span class="pagination_total">total:[!pagination_nb!]</span>
 <!--#BEGIN pagination_act --><select onchange="location.href='[!pagination_url!]&pagination_pag='+this.value;"><option value=""></option><option value=5>5</option><option value=10>10</option><option value=20>20</option><option value=50>50</option><option value=100>100</option><option value=300>300</option><option value=500>500</option></select><!--#END pagination_act -->
 <!--#END pagination -->

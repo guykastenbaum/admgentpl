@@ -151,16 +151,27 @@ if ((substr($_REQUEST["id"],0,8)=="list_tr_") and (substr($_REQUEST["field"],0,8
 /* debut code spe head *//* fin code spe */
 if ($action=="add") //---------------------------------ADD----------------------------------------
 {
-	$sql="insert into $tablename ()values()";
+	$sql="insert into $tablename (";
+	foreach($tb as $tk=>$tv)  if (!is_null($_REQUEST[$tk])) $sql.=$tk.',';
+	$sql=substr($sql,0,-1).") values (";
+	foreach($tb as $tk=>$tv) {
+		if (!is_null($_REQUEST[$tk])){
+			$tr=(is_array($_REQUEST[$tk]))?implode(",",$_REQUEST[$tk]):$_REQUEST[$tk];
+			if     (($tv["typebdd"]=="int")) $sql.=f_qqsql($tr).",";
+			elseif (($tv["typebdd"]=="date")) $sql.=f_date2sql($tr).",";
+			elseif (($tv["typebdd"]=="text")) $sql.=f_qqsqlq($tr).",";
+		}
+	}
+	$sql=substr($sql,0,-1).")";
 	f_sql2tt0($sql);
-	$_REQUEST[$tbid]=$$tbid=mysql_insert_id();
+	$_REQUEST[$tbid]=$$tbid=mysqli_insert_id($db);
 	$action="mod";
 }
 if ($action=="del") //---------------------------------DEL----------------------------------------
 {
 	$sql="delete from $tablename where $tbid=".f_qqsqlr($tbid);
 	f_sql2tt0($sql);
-	$tt["message"].=" l'element $tbid de $tablename a été supprimé.";
+	$tt["message"].=" l'element $tbid de $tablename a Ã©tÃ© supprimÃ©.";
 }
 if ($action=="mod")  //---------------------------------MOD----------------------------------------
 {
@@ -289,10 +300,10 @@ $sqljoin="";
 foreach($tb as $name=>$tbv)
 	if ($tbv["fk_id"])
 	{
-		$sqljoin.="\n left join ".$tbv["fk_table"].
-			" on ".$tablename.".".$name."=".$tbv["fk_table"].".".$tbv["fk_id"];
-		$sqlselect.=",".$tbv["fk_table"].".".$tbv["fk_id"];
-		$sqlselect.=",".$tbv["fk_table"].".".$tbv["fk_label"];
+		$sqljoin.="\n left join ".$tbv["fk_table"]." ".$tbv["fk_table"]."_".$name.
+			" on ".$tablename.".".$name."=".$tbv["fk_table"]."_".$name.".".$tbv["fk_id"];
+		$sqlselect.=",".$tbv["fk_table"]."_".$name.".".$tbv["fk_id"];
+		$sqlselect.=",".$tbv["fk_table"]."_".$name.".".$tbv["fk_label"];
 	}
 $sqlselect.=" from $tablename ";
 $sqlcount="select count(*) as nb from $tablename ";
@@ -335,8 +346,8 @@ $filter_fulltext=$search_filter["fulltext"];
 if ($filter_fulltext){
 	$sqlwhere.=" and (1=0 ";
 	foreach($tb as $name=>$tbv)
-		//on every kind of fields : if (($tbv["typebdd"]=="text") or ($tbv["typebdd"]=="date"))
-		$sqlwhere.=gentpl_typebdd_wqq($name,$filter_fulltext,$tbv["typebdd"],$filternot,($tbv["menu"])?1:2,"OR");
+		//allfields if (($tbv["typebdd"]=="text") or ($tbv["typebdd"]=="date"))
+			$sqlwhere.=gentpl_typebdd_wqq($name,$filter_fulltext,$tbv["typebdd"],$filternot,($tbv["menu"])?1:2,"OR");
 	$sqlwhere.=" ) ";
 }
 $sqlorderby=" order by ";
@@ -353,13 +364,14 @@ $ttlist=array();
 //pagination
 //in=$pagination_nbpp = nb d'elts par page // $page = url actuelle // $pagination_nb = nb total
 //out $ttpagin avec infos pour $sqllimit=" limit $pagination_deb,$pagination_pag ";
-$def_orderby=$tb[$tbid]["whereclause"];//non utilisé
-$def_orderby=$tb[$tbid]["orderby"];//non utilisé
+$def_orderby=$tb[$tbid]["whereclause"];//non utilisÃ©
+$def_orderby=$tb[$tbid]["orderby"];//non utilisÃ©
 if (!$_SESSION[$tbid."_pagination_pag"]) $_SESSION[$tbid."_pagination_pag"]=$tb[$tbid]["pagination_pag"];
 if ($_REQUEST["pagination_pag"]) $_SESSION[$tbid."_pagination_pag"]=$_REQUEST["pagination_pag"];
 $pagination_nbpp=$_SESSION[$tbid."_pagination_pag"];
+if (!$pagination_nbpp) $pagination_nbpp=100;
 $ttnb=f_sql2tt0($sqlcount.$sqlwhere);
-$ttlist["pagination"]=f_pagination($pagination_nbpp,$ttnb["nb"],f_getpagename(),20);
+$ttlist["pagination"]=f_pagination($pagination_nbpp,$ttnb["nb"],f_getpagename(),100);
 $sqllimit=" limit ".$ttlist["pagination"]["pagination_deb"].",".$ttlist["pagination"]["pagination_pag"];
 $ttlist["fields"]=array();
 foreach($ttfields as $name=>$tbv)
@@ -397,7 +409,7 @@ for ($i=0;$i<count($ttlist["list"]);$i++)
 						preg_replace("/^(\-*)([^\-].*)$/","$2",$tbf["tmp_menutab"][$ttvaff]);
 			if ($tbf["affix"])
 				$ttvaff=filtpl_compile($tbf["affix"],array_merge($tbf,$ttv));
-			if (($tbf["typeaff"]=="longtext") and ($tbf["colwidth"]) and ($tbf["flag_noedit"]))
+			if (($tbf["colwidth"]) and ($tbf["flag_noedit"]))
 				if (strlen($ttvaff)>$tbf["colwidth"]-5) $ttvaff=substr($ttvaff,0,$tbf["colwidth"]-5)." ... ";
 			$ttv[$ttfield."_aff"]=$ttvaff;
 			if ($tbf["fk_label"]) $ttv[$tbf["fk_label"]."_aff"]=$ttvaff;
@@ -437,6 +449,6 @@ foreach($tt as $ttsubsk=>$ttsubsv)
 /* debut code spe end *//* fin code spe */
 //print_r($tb);die;
 $filehtm=gentpl_action_gentpl_htm($tb);
-//print_r($tb);print_r($tt);print($filehtm);die;
+//debug print_r($tb);print_r($tt);print($filehtm);die;
 print gentpl_template($tt,array(),$filehtm);
 ?>

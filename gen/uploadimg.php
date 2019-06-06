@@ -76,10 +76,10 @@ if ($_REQUEST["action"]=="upload")
 					$msg.="OK  ".$file[name]." => ".$f."<br>\n";
 				}
 				else
-					$msg.="ERR ".$file[name]." non chargé <br>\n";
+					$msg.="ERR ".$file[name]." non chargÃ© <br>\n";
 			}
 			else //updir
-				$msg.="ERR ".$file[name]." non chargé <br>\n";
+				$msg.="ERR ".$file[name]." non chargÃ© <br>\n";
 		}//name,size
 	}//for
 }//action

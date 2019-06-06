@@ -14,7 +14,7 @@ print '<head>
 <link rel="stylesheet" type="text/css" href="../gentpl.css" />
 <link rel="stylesheet" type="text/css" href="../clic_gentpl.css" />
 <link rel="stylesheet" type="text/css" href="../gentpl_cli.css" />
-<script src="/filweb/FCKeditor/fckeditor.js" type="text/javascript"></script>
+<script src="../inc/FCKeditor/fckeditor.js" type="text/javascript"></script>
 <script src="../inc/jquery.min.js"         type="text/javascript" ></script>
 <link rel="stylesheet" type="text/css" href="../inc/jquery-ui.min.css" />
 <script src="../inc/jquery-ui.min.js"         type="text/javascript" ></script>
@@ -35,15 +35,16 @@ if ($_REQUEST["action"]=="db_conf"){
 		$dbstr.="\$$dbk='".$$dbk."';";
 	}
 	if ($dbdiff){
-		print "création de ".$cfdir_inc."db_conf.php <br/>\n";
+		print "crÃ©ation de ".$cfdir_inc."db_conf.php <br/>\n";
 		file_put_contents($cfdir_inc."db_conf.php","<"."?php ".$dbstr." ?".">");
 	}
 }
-	$db=mysql_connect($db_host,$db_user,$db_pass);
+	$db=mysqli_connect($db_host,$db_user,$db_pass);
 	if ($db) {
+		mysqli_set_charset($db,"utf8");
 		foreach(array("db_host","db_user","db_name","db_pass") as $dbk)
 			$_SESSION[$dbk]=$$dbk;
-		mysql_select_db($db_name,$db)||die;
+		mysqli_select_db($db,$db_name)||die;
 		$stabs=f_sql2tt("show tables");
 		$stabsks=array_keys($stabs[0]);
 		$stabsk=$stabsks[0];
@@ -116,7 +117,7 @@ if ($_REQUEST["action"]=="gentab")
 {
 	$tb=tbcretb($db,$tablename);
 
-    mysql_close();
+    mysqli_close($db);
     exit;
 }
 //--------------------EDITION TABLEAU---------------------------------------------------------------------------------
@@ -231,7 +232,7 @@ print "<input type=submit></form>\n";
 //------INSTALL-----
 if ($_REQUEST["action"]=="install"){
 	copy($cfdir_gen."table_tpl.php",$cfdir_ins.$tablename.".php");
-	print "$tablename.php copiés dans $cfdir_ins";
+	print "$tablename.php copiÃ©s dans $cfdir_ins";
 }
 
 ?>

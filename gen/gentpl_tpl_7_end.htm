@@ -35,12 +35,14 @@ $(document).ready(function() {
 	$('#open_new_popup').click(function(){ gentpl_edit('','','{openpopup}') });
 	$('#open_new_popup2').click(function(){ gentpl_edit('','','{openpopup}') });
 	$('#open_new_popup3').click(function(){ gentpl_edit('','','{openpopup}') });
-	$(".list_check_multimod_all").each(function(iv,v){
-		$(v).click(function(){
-			$(".list_check_multimod").each(function(iv2,v2){v2.checked=v.checked;});
-			$(".list_check_multimod_all").each(function(iv2,v2){v2.checked=v.checked;});
+	$(".list_check_multimod_all").each(function(){
+		$(this).click(function(){
+			var vchecked=$(this).prop("checked");
+			$(".list_check_multimod").each(function(){$(this).prop("checked",vchecked);});
+			$(".list_check_multimod_all").each(function(v2){$(this).prop("checked",vchecked);});
 		});
 	});
+
 <!--#END divlist -->
 <!--#BEGIN new -->
 	<!--#BEGIN if_popup -->
@@ -51,8 +53,8 @@ $(document).ready(function() {
 /*
 //TableKit.load();
 TableKit.options.editAjaxURI = '{tablename}.php';
-$("table .resizable").each(function(it,t) {TableKit.Resizable.init(t,{'trueResize' : true, 'keepWidth' : false});});
-$("table .resizable").each(function(it,t) {TableKit.Ordering.init(t,{});});
+$("table .resizable").each(function(t) {TableKit.Resizable.init(t,{'trueResize' : true, 'keepWidth' : false});});
+$("table .resizable").each(function(t) {TableKit.Ordering.init(t,{});});
 */
 <!--#BEGIN divlist -->
 	<!--#BEGIN fields -->
@@ -81,14 +83,14 @@ $("table .resizable").each(function(it,t) {TableKit.Ordering.init(t,{});});
 		});
 	//$('#multimod_div_header_img').click(function(){$('#multimod_div_id').hide();});
 	$('#multimod_input_submit_mod').click(function(){
-		nb_list_check_multimod=0;
-		$(".list_check_multimod").each(function(iv,v){
-			if (v.checked) nb_list_check_multimod++;})
-		if (!confirm('Modification de '+nb_list_check_multimod+' éléments ?'))
+		var nb_list_check_multimod=0;
+		$(".list_check_multimod:checked").each(function(){
+			if ($(this).prop("checked")) nb_list_check_multimod++;})
+		if (!confirm('Modification de '+nb_list_check_multimod+' Ã©lÃ©ments ?'))
 			return;
-		$(".list_check_multimod").each(function(iv,v){
-			id=v.id.substring(String("list_check_multimod_").length)
-			if (v.checked)
+		$(".list_check_multimod:checked").each(function(){
+			id=$(this).prop("id").substring(String("list_check_multimod_").length)
+			if ($(this).prop("checked"))
 			$.ajax({
 			   url: '{tablename}.php',
 			   type: "get",
@@ -96,18 +98,18 @@ $("table .resizable").each(function(it,t) {TableKit.Ordering.init(t,{});});
 			   data:$('#form_multimod').serialize()+"&id="+id,
 			   success: function(ret){$("#multimod_div_ok").append(ret);}
 			});
-			v.checked=false;
+			$(this).prop("checked",false);
 		});
 	});
 	$('#multimod_input_submit_del').click(function(){
 		nb_list_check_multimod=0;
-		$(".list_check_multimod").each(function(iv,v){
-			if (v.checked) nb_list_check_multimod++;})
-		if (!confirm('Suppression de '+nb_list_check_multimod+' éléments ?'))
+		$(".list_check_multimod:checked").each(function(){
+			if ($(this).prop("checked")) nb_list_check_multimod++;})
+		if (!confirm('Suppression de '+nb_list_check_multimod+' Ã©lÃ©ments ?'))
 			return;
-		$(".list_check_multimod").each(function(iv,v){
-			id=v.id.substring(String("list_check_multimod_").length)
-			if (v.checked)
+		$(".list_check_multimod").each(function(){
+			id=$(this).prop("id").substring(String("list_check_multimod_").length)
+			if ($(this).prop("checked"))
 			$.ajax({
 			   url: '{tablename}.php',
 			   type: "get",
@@ -117,7 +119,7 @@ $("table .resizable").each(function(it,t) {TableKit.Ordering.init(t,{});});
 				 $("#multimod_div_ok").append(ret);
 			   }
 			});
-			v.checked=false;
+			$(this).prop("checked",false);
 		});
 	});
 

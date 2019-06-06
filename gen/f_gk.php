@@ -27,8 +27,9 @@ function f_date2sql($v_date){
 	return(f_timestamp2sql(f_date2timestamp($v_date)));
 }
 function f_time2sql($v_time){
+	global $db;
 	if (!$v_time) return("null");
-	list($hh,$mm,$ss)=explode(":",mysql_real_escape_string($v_time));
+	list($hh,$mm,$ss)=explode(":",mysqli_real_escape_string($db,$v_time));
 	if (!is_numeric($hh)) return("null");
 	if (!is_numeric($mm)) $mm=0;
 	if (!is_numeric($ss)) $ss=0;
@@ -91,7 +92,7 @@ function f_isrecursive(){
     return(false);
 }
 
-/* ajoute v_nbjouv jours ouvrés à la date v_timestamp (compte +1 si >v_heurelimite)  , renvoie date (h=0) */
+/* ajoute v_nbjouv jours ouvrÃ©s Ã  la date v_timestamp (compte +1 si >v_heurelimite)  , renvoie date (h=0) */
 function f_datejourouvres($v_nbjouv,$v_timestamp=null,$v_heurelimite=0){
 	$nbjreel=$v_nbjouv;
 	$j=($v_timestamp)?$v_timestamp:time();//jour de depart
@@ -121,7 +122,7 @@ function f_datejourouvres($v_nbjouv,$v_timestamp=null,$v_heurelimite=0){
 }
 
 
-function f_qqsq($v_str){return(mysql_escape_string(($v_str)));} //removed stripslashes
+function f_qqsq($v_str){global $db;return(mysqli_escape_string($db,($v_str)));} //removed stripslashes
 function f_qqsql($v_str){return(((!is_null($v_str)) and (is_numeric($v_str)))?f_qqsq($v_str):"NULL");}
 function f_qqsqlq($v_str){return((!is_null($v_str))?"'".f_qqsq($v_str)."'":"NULL");}
 function f_qqsqlr($v_str){return(f_qqsql($_REQUEST[$v_str]));}
@@ -144,7 +145,7 @@ function f_menu_dyn($v_menu_id,$v_menu_sel,$v_menu_tab,$v_javascript="")
 	$menu_dyn.='</select>'."\n";
 return($menu_dyn);
 }
-//menu avec parents à partir de sql, attention select id,libelle,parent
+//menu avec parents Ã  partir de sql, attention select id,libelle,parent
 function f_ttr2menutab_compare($a, $b) {return strcmp($a["pathname"], $b["pathname"]);}
 function f_ttr2menutab($v_menu_tab,$v_orphan=null){
 	if (!$v_menu_tab) return($tt2menutab);
@@ -214,13 +215,14 @@ function f_ttr2menutab($v_menu_tab,$v_orphan=null){
 				unset($menu_tab_in[$menu_tab_i]);
 	}
 
+	//print_r($menu_tab_in);die();
 	//calcul de menutab classique
 	$tt2menutab=Array();
 	foreach($menu_tab_in as $menu_tab_item)
 		$tt2menutab[$menu_tab_item[$menu_tab_id]]=$menu_tab_item["pathprefix"].$menu_tab_item[$menu_tab_val];
 	return($tt2menutab);
 }
-//menu à partir de sql, attention select id,libelle
+//menu Ã  partir de sql, attention select id,libelle
 function f_tt2menutab($v_menu_tab){
 	$tt2menutab=Array();
 	if (!$v_menu_tab) return($tt2menutab);
@@ -238,10 +240,10 @@ OLDf_sql2menu($v_menu_id,$v_menu_sel,$v_tab_or_sql,$v_javascript=""){
 	return(f_menu_dyn($v_menu_id,$v_menu_sel,f_tt2menutab(f_sql2tt($v_tab_or_sql)),$v_javascript));
 }
 */
-//ajout menu par string: change x:y;z:a;.. par array(x=>y, etc)
+//ajout menu par string: change x:y;z:a;.. par array(x=>y, etc) +u;v;w possib
 function f_sql2menu_keyval($v_tab_or_sql)
 {
-	if (preg_match("/^[a-zA-Z0-9 \_\-\.']*[:=]/",$v_tab_or_sql))
+	if (preg_match("/^[a-zA-Z0-9 \_\-\.']*[;:=]/",$v_tab_or_sql))
 	{
 		$v_tab=array();
 		foreach(explode(";",$v_tab_or_sql) as $sql2menu_kvm2a0)
@@ -257,7 +259,7 @@ function f_sql2menutab($v_tab_or_sql,$v_orphan=null)
 		$v_tab=$v_tab_or_sql;
 	else
 	{
-		if (preg_match("/^[a-zA-Z0-9 \_\-\.']*[:=]/",$v_tab_or_sql))
+		if (preg_match("/^[a-zA-Z0-9 \_\-\.']*[;:=]/",$v_tab_or_sql))
 			$v_tab=f_sql2menu_keyval($v_tab_or_sql);
 		else
 			$v_tab=f_sql2tt($v_tab_or_sql);
@@ -326,11 +328,12 @@ function f_rskeys($v_rs)
 }
 function f_sql2tt($v_sql)
 {
+	global $db;
 	$f_sql2tt= array();
 	f_debug_print($v_sql);
-	($lpag = mysql_query ($v_sql) ) or die (mysql_error());
+	($lpag = mysqli_query($db,$v_sql) ) or die (mysqli_error($db));
 	if (!is_bool($lpag))
-		while ($rs=mysql_fetch_array($lpag))
+		while ($rs=mysqli_fetch_array($lpag))
 			array_push($f_sql2tt,f_rskeys($rs));
 	f_debug_print($f_sql2tt);
 	return($f_sql2tt);
@@ -387,7 +390,7 @@ function f_getpagenamehtm($v_str=null){
 }
 function f_desaccentuation($v_str)
 {
-	//et si j'utilisait htmlentities pour les accents !?: référence devient reference
+	//et si j'utilisait htmlentities pour les accents !?: rÃ©fÃ©rence devient reference
 	$str=f_str2utf8($v_str);
 	$str=f_str2iso(html_entity_decode($str,ENT_NOQUOTES,"UTF-8"));
 	$str=preg_replace("/[\xa0-\xbf\xd7\xf7]/"," ",$str);
@@ -487,8 +490,8 @@ function f_pagination($pagination_nbpp,$pagination_nb,$v_page,$v_maxpages=10)
 	return($ttpagination);
 }
 
-//importe un fichier tabulé en un tableau associatif (clés=1ere ligne des champs)
-// sans clés en 1ere ligne si nohead=1
+//importe un fichier tabulÃ© en un tableau associatif (clÃ©s=1ere ligne des champs)
+// sans clÃ©s en 1ere ligne si nohead=1
 function f_import_xls2tt($v_file,$v_nohead=0)
 {
 	if (file_exists($v_file))
@@ -617,7 +620,7 @@ function f_formatnamejpg($v_namejpg,$v_fscode="ISO")
 		$v_namejpg=f_str2utf8($v_namejpg);
 	return(preg_replace("/%2F/i","/",rawurlencode($v_namejpg)));
 }
-// resize des photos crée des br_xxx.jpg (br mr hr etc au choix) 
+// resize des photos crÃ©e des br_xxx.jpg (br mr hr etc au choix) 
 // syntaxe com = brw=150,mrw=280,hrw=500 br=XX W ou H ou les deux = nb px maxi
 function f_mkbrmrhr($v_dir,$v_name,$v_com,$v_etirer=true)
 {
@@ -671,10 +674,10 @@ function f_getrootrelpath()
 		$rroot=strtolower(str_replace("\\","/",realpath($rootrelpath)));
 		if ($rroot==$droot) return($rootrelpath);
 	}
-	return(".");//oups raté
+	return(".");//oups ratÃ©
 }
 //execute une fonction recursivement sur un arbre (max 20 niveaux)
-//faudra peut etre un truc avec 2 parametres pour la clé
+//faudra peut etre un truc avec 2 parametres pour la clÃ©
 function f_array_recurse($x_tt,$v_fx,$v_levelmax=20)
 {
 	if ($v_levelmax<=0) die("f_array_recurse too many recursion");

@@ -33,7 +33,7 @@ function gentpl_tbajoutdef($tb)
 			$tb[$tk]["label"]=$tkl;
 		}
 		
-		if(!$tbtypes[$tb[$tk]["type"]]) die("type de donnée inconnu : ".$tb[$tk]["type"]);
+		if(!$tbtypes[$tb[$tk]["type"]]) die("type de donnÃ©e inconnu : $tk ".$tb[$tk]["type"].print_r($tb[$tk],1));
 		foreach($tbtypes[$tb[$tk]["type"]] as $typk=>$typkv)
 			if ($tb[$tk][$typk]=="") 
 				$tb[$tk][$typk]=$typkv;
@@ -54,31 +54,58 @@ function gentpl_tbajoutdef($tb)
 
 function tbcretb($db,$tablename){
 global $cfdir_tab,$ttarrayname;
-//die("mysql_list_fields(".$_SESSION["db_name"].", $tablename, $db");
 	$ttfilename=$tablename."_inc.php";
-	$fields = mysql_list_fields($_SESSION["db_name"], $tablename, $db);
-    //$rows   = mysql_num_rows($result);
-    //$table = mysql_field_table($result, 0);
-    // Votre table $table dispose de $fields colonnes et $rows ligne(s)
 	$tb=array();
 	$hasid=0;
-    for ($i=0; $i < mysql_num_fields($fields); $i++) {
-		$field=mysql_field_name($fields, $i);
-		$tb[$field]=array(
-			'type'  => mysql_field_type($fields, $i),
-			'len'   => mysql_field_len ($fields, $i),
-	    );
-		$flags = mysql_field_flags($fields, $i);
-		foreach (explode(' ',$flags) as $flag)
-			if ($flag) $tb[$field]["flag_".$flag]=1;
+	$result = mysqli_query($db, "select * from $tablename limit 1" );
+    $fields = mysqli_fetch_fields($result);
+//print_r($fields);
+$mysql_data_type_hash = array(
+    1=>'tinyint',
+    2=>'smallint',
+    3=>'int',
+    4=>'float',
+    5=>'double',
+    7=>'timestamp',
+    8=>'bigint',
+    9=>'mediumint',
+    10=>'date',
+    11=>'time',
+    12=>'datetime',
+    13=>'year',
+    16=>'bit',
+    //252 is currently mapped to all text and blob types (MySQL 5.0.51a)
+    252=>'text',
+    253=>'varchar',
+    254=>'char',
+    246=>'decimal'
+);
+    foreach($fields as $i=>$fld) {
+                $field = $fld->name;
+        //sql2tt($db,"SHOW COLUMNS FROM ".$tablename);
+                $tb[$field]=array(
+                        'type'  => $mysql_data_type_hash[$fld->type],
+                        'len'   => $fld->length,
+            );
+		$flags = mysqli_fetch_field_direct ($result , $i);
+		//AUTO_INCREMENT_FLAG=512
+		if ($flags->flags & 512) $tb[$field]["flag_auto_increment"]=1;
+// $flags = mysql_field_flags($fields, $i);
+// foreach (explode(' ',$flags) as $flag) if ($flag) $tb[$field]["flag_".$flag]=1;
 // not_null, primary_key, unique_key, multiple_key, blob, unsigned, 
 // zerofill, binary, enum, auto_increment, timestamp
 		if ($tb[$field]["flag_auto_increment"]) {$tb[$field]["type"]="id";$hasid=1;}
-		if ($tb[$field]["type"]=="string") $tb[$field]["type"]="text";
-		if ($tb[$field]["type"]=="blob") $tb[$field]["type"]="longtext";
-		if ($tb[$field]["type"]=="real") $tb[$field]["type"]="int";
+                if ($tb[$field]["type"]=="string") $tb[$field]["type"]="text";
+                if ($tb[$field]["type"]=="varchar") $tb[$field]["type"]="text";
+                if ($tb[$field]["type"]=="blob") $tb[$field]["type"]="longtext";
+                if ($tb[$field]["type"]=="real") $tb[$field]["type"]="int";
+                if ($tb[$field]["type"]=="float") $tb[$field]["type"]="int";
+                if ($tb[$field]["type"]=="tinyint") $tb[$field]["type"]="int";
+                if ($tb[$field]["type"]=="datetime") $tb[$field]["type"]="date";
+                if ($tb[$field]["type"]=="timestamp") $tb[$field]["type"]="date";
     }
-    if (!$hasid) $tb[mysql_field_name($fields, 0)]["type"]="id";//force 1 chp
+    mysqli_free_result($result);
+    if (!$hasid) $tb[$fields[0]->name]["type"]="id";//force 1 chp
 	if (file_exists($cfdir_tab.$ttfilename) and ($_REQUEST["over"]==1)) {
 		if (file_exists($cfdir_tab."OLD_".$ttfilename)) unlink($cfdir_tab."OLD_".$ttfilename);
 		rename($cfdir_tab.$ttfilename,$cfdir_tab."OLD_".$ttfilename);
@@ -86,11 +113,11 @@ global $cfdir_tab,$ttarrayname;
 	if (file_exists($cfdir_tab.$ttfilename)){
 		if (file_exists($cfdir_tab."NEW_".$ttfilename))
 			unlink($cfdir_tab."NEW_".$ttfilename);
-		print "création de ".$cfdir_tab."NEW_".$ttfilename.
-			" <a href='".f_getpagename()."?action=gentab&over=1'>écraser</a><br/>\n";
+		print "crÃ©ation de ".$cfdir_tab."NEW_".$ttfilename.
+			" <a href='".f_getpagename()."?action=gentab&over=1'>Ã©craser</a><br/>\n";
 		$fw=fopen($cfdir_tab."NEW".$ttfilename,"w");
 	} else {
-		print "création de ".$cfdir_tab.$ttfilename." <br/>\n";
+		print "crÃ©ation de ".$cfdir_tab.$ttfilename." <br/>\n";
 		$fw=fopen($cfdir_tab.$ttfilename,"w");
 	}
 	fwrite($fw,"<"."?php\n".'$'.$ttarrayname.'='.f_ttrecarray($tb).';'."\n?".">");
@@ -129,11 +156,11 @@ foreach($t_morchtml as $morchtml)
 
 //-- ajoute les champs qui manquent
 foreach(array_keys($tb) as $tk)
-	$tb[$tk]["id"]=$tk;//id pour utilité
+	$tb[$tk]["id"]=$tk;//id pour utilitÃ©
 //alrdn $tb=gentpl_tbajoutdeftbid($tb);//force 1er=id
 		
 //--decoupe en plusieurs trucs
-//champs triés par type
+//champs triÃ©s par type
 $tbt=array();
 foreach(array_keys($tbtypes) as $ttk) $tbt[$ttk]=array();
 foreach(array_keys($tb) as $tbk)
@@ -234,13 +261,13 @@ foreach(array_keys($tb) as $tbk)
 		array_push($tthtm["line"],$tline);
 	}
 /* foreach(array_keys($tbtypes) as $ttk)  foreach($tbt[$ttk] as $tbtk)  array_push($tthtm[$ttk],$tb[$tbtk]); */
-//debug print_r($tthtm);die(implode("",$tgentplhtm));
 $filehtm=filtpl_compile(implode("",$tgentplhtm),$tthtm);
 $filehtm=str_replace("[!","{",$filehtm);
 $filehtm=str_replace("!]","}",$filehtm);
 $filehtm=str_replace("<!--#","<!-- ",$filehtm);
 $filehtm=str_replace("\r\n","\n",$filehtm);
 $filehtm=preg_replace("/[\n \t]*\n/","\n",$filehtm);
+//debug print_r($tthtm);print(implode("",$tgentplhtm));print($filehtm);
 
 if (file_exists($cfdir_gen.$tablename.".htm")){
 	if (file_exists($cfdir_gen."OLD_".$tablename.".htm"))
@@ -310,10 +337,10 @@ function gentpl_upload($kname,$filezname,$v_id)
 			$msg.="OK  ".$file["name"]." => ".$f."<br>\n";
 		}
 		else
-			$msg.="ERR ".$file["name"]." non chargé <br>\n";
+			$msg.="ERR ".$file["name"]." non chargÃ© <br>\n";
 	}
 	else //updir
-		$msg.="ERR ".$file["name"]." non chargé <br>\n";
+		$msg.="ERR ".$file["name"]." non chargÃ© <br>\n";
 	return($msg);
 }
 ?>

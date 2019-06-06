@@ -76,7 +76,7 @@
 		<br/><br/>
 		<input type=submit value=rechercher id="search_input_submit">
 		<!-- input type=button value=effacer id="search_input_reset" 
-			onClick="$A($$('#form_search input')).each(function(iv,v){
+			onClick="$A($$('#form_search input')).each(function(v){v=$(this);
 				alert(v.id+'='+v.value);
 				v.clear();v.value='';
 				alert(v.id+'='+v.value);

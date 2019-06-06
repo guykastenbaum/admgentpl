@@ -9,6 +9,9 @@ $cfdir_tab="$cfdir_root/$cfdir_gentpl/tab/";
 $cfdir_ins="$cfdir_root/";
 $cfdir_fck="/inc/lib_js/FCKeditor/";
 
-mysql_connect($db_host,$db_user,$db_pass)||die;
-mysql_select_db($db_name)||die;
+$db=mysqli_connect($db_host,$db_user,$db_pass);
+mysqli_set_charset($db,"utf8")||die('utf8');
+mysqli_select_db($db,$db_name)||die('dbsel');
+// Report simple running errors
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ?>

@@ -21,11 +21,12 @@ function filtpl_compile($filtpl_tf,$filtpl_tt){
 		$filtpl_after=substr($filtpl_after,$filtpl_m[0][1]+strlen("<!-- END $filtpl_tag -->"));
 		//string is splitted in before.loop.after -- lets recurse!
 		//is it a loop or just a if ? (ugly test : if [0] exists it is supposed to be a loop)
-		if ($filtpl_tt[$filtpl_tag][0])
-			foreach ($filtpl_tt[$filtpl_tag] as $filtpl_tt_sub) //lets loop
-				$filtpl_end.=filtpl_compile($filtpl_loop,$filtpl_tt_sub);
-		else // lets do the unique loop
-			$filtpl_end.=filtpl_compile($filtpl_loop,$filtpl_tt[$filtpl_tag]);
+		if (array_key_exists($filtpl_tag,$filtpl_tt))
+			if (is_array($filtpl_tt[$filtpl_tag]) and array_key_exists(0,$filtpl_tt[$filtpl_tag]))
+				foreach ($filtpl_tt[$filtpl_tag] as $filtpl_tt_sub) //lets loop
+					$filtpl_end.=filtpl_compile($filtpl_loop,$filtpl_tt_sub);
+			else // lets do the unique loop
+				$filtpl_end.=filtpl_compile($filtpl_loop,$filtpl_tt[$filtpl_tag]);
 		$filtpl_end.=filtpl_compile($filtpl_after,$filtpl_tt); //recurse the afterloop
 	}
 	//substitute known values of root level

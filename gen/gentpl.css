@@ -1,12 +1,16 @@
 /* template menu hor */
 #menu_horizontal > ul { list-style-type: none;border:1px solid grey;}
-#menu_horizontal > ul > li { position:relative; cursor:pointer;}
+#menu_horizontal > ul > li { position:relative; cursor:pointer;display:inline-block;
+	border:1px solid grey;padding:1px 5px;}
 #menu_horizontal > ul > li > ul {
 		display:none;z-index:3;background-color:#fff;
-		width:600px;position:absolute;
+		width:400px;position:absolute; padding:10px;
 		border:1px solid grey;  box-shadow: 8px 8px 8px grey; }
-#menu_horizontal > ul > li > ul > li {width:200px;float:left;}
+#menu_horizontal > ul > li > ul > li {width:200px;float:left;padding: 2px 10px;}
 #menu_horizontal > ul > li:hover > ul {display:block;background-color:#fff}
+#menu_horizontal > ul > li > ul > li > a {text-decoration:none;}
+#menu_horizontal > ul > li > ul > li:hover {background-color:#888;}
+#menu_horizontal > ul > li > ul > li > a:hover {color:#fff;}
 
 
 /* gentpl_tab */
